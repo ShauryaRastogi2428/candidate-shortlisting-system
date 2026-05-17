@@ -26,7 +26,7 @@ function CandidateForm() {
     try {
 
       await axios.post(
-        "http://localhost:5000/api/candidates",
+        "https://candidate-shortlisting-system-3.onrender.com/api/candidates",
         {
           ...formData,
           skills: formData.skills

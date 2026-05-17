@@ -37,7 +37,7 @@ function JobForm() {
       setLoading(true);
 
       const response = await axios.post(
-        "http://localhost:5000/api/match",
+        "https://candidate-shortlisting-system-3.onrender.com/",
         {
           requiredSkills:
             jobData.requiredSkills
@@ -74,7 +74,7 @@ function JobForm() {
       setLoading(true);
 
       const response = await axios.post(
-        "http://localhost:5000/api/ai/shortlist",
+        "https://candidate-shortlisting-system-3.onrender.com/api/ai/shortlist",
         {
           requiredSkills:
             jobData.requiredSkills

@@ -16,7 +16,7 @@ function CandidateList() {
     try {
 
       const response = await axios.get(
-        "http://localhost:5000/api/candidates"
+        "https://candidate-shortlisting-system-3.onrender.com/api/candidates"
       );
 
       setCandidates(response.data);
