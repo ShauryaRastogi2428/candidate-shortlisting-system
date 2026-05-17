@@ -7,8 +7,11 @@ function CandidateForm() {
     name: "",
     email: "",
     skills: "",
-    experience: ""
+    experience: "",
+    bio: ""
   });
+
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
 
@@ -25,30 +28,55 @@ function CandidateForm() {
 
     try {
 
-      await axios.post(
+      setLoading(true);
+
+      const response = await axios.post(
         "https://candidate-shortlisting-system-3.onrender.com/api/candidates",
         {
           ...formData,
-          skills: formData.skills
-            .split(",")
-            .map(skill => skill.trim())
+
+          experience:
+            Number(formData.experience),
+
+          skills:
+            formData.skills
+              .split(",")
+              .map(skill => skill.trim())
         }
       );
 
-      alert("✅ Candidate Added Successfully");
+      console.log(
+        "CANDIDATE ADDED:",
+        response.data
+      );
+
+      alert(
+        "✅ Candidate Added Successfully"
+      );
 
       setFormData({
         name: "",
         email: "",
         skills: "",
-        experience: ""
+        experience: "",
+        bio: ""
       });
+
+      setLoading(false);
 
     } catch (error) {
 
-      console.log(error);
+      console.log(
+        "FULL ERROR:",
+        error.response?.data || error.message
+      );
 
-      alert("❌ Error Adding Candidate");
+      alert(
+        error.response?.data?.message ||
+        "❌ Error Adding Candidate"
+      );
+
+      setLoading(false);
 
     }
 
@@ -100,11 +128,26 @@ function CandidateForm() {
           required
         />
 
+        <textarea
+          className="input"
+          name="bio"
+          placeholder="📝 Candidate Bio"
+          value={formData.bio}
+          onChange={handleChange}
+          rows="4"
+        />
+
         <button
           className="button glow"
           type="submit"
         >
-          Add Candidate
+
+          {
+            loading
+              ? "Adding..."
+              : "Add Candidate"
+          }
+
         </button>
 
       </form>
