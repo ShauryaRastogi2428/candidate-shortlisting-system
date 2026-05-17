@@ -37,7 +37,7 @@ function JobForm() {
       setLoading(true);
 
       const response = await axios.post(
-        "https://candidate-shortlisting-system-3.onrender.com/",
+        "https://candidate-shortlisting-system-3.onrender.com/api/match",
         {
           requiredSkills:
             jobData.requiredSkills
@@ -56,6 +56,7 @@ function JobForm() {
     } catch (error) {
 
       console.log(
+        "MATCH ERROR:",
         error.response?.data || error.message
       );
 
@@ -91,7 +92,6 @@ function JobForm() {
         response.data
       );
 
-      // ✅ UPDATED BUG FIX
       setAiResult(response.data.result);
 
       setLoading(false);
